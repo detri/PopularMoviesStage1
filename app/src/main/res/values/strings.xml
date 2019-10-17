@@ -7,4 +7,6 @@
     <string name="synopsis_label">Plot Synopsis</string>
     <string name="release_label">Release Date</string>
     <string name="user_rating_label">User Rating (Average)</string>
+    <string name="sort_by_popular">Popular</string>
+    <string name="sort_by_top_rated">Top Rated</string>
 </resources>

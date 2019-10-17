@@ -1,10 +1,14 @@
 package com.example.popularmoviesstage1;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -27,8 +31,12 @@ public class MainActivity extends AppCompatActivity {
 
     private RequestQueue requestQueue;
 
+    private boolean sortingByPopular = true;
+
     private TextView mErrorText;
     private TextView mLoadingText;
+
+    private MenuItem mToggleSort;
 
     private RecyclerView mMoviesList;
 
@@ -69,6 +77,25 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
+    private JsonObjectRequest fetchTopRatedMovieData() {
+        return new JsonObjectRequest(NetworkUtils.getTopRatedUrl(), null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        JSONArray results = response.optJSONArray("results");
+                        movieList = NetworkUtils.jsonArrayToMovieList(results);
+                        showMoviesList();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                        showErrorText();
+                    }
+                });
+    }
+
     private void showErrorText() {
         mLoadingText.setVisibility(View.INVISIBLE);
         mErrorText.setVisibility(View.VISIBLE);
@@ -86,5 +113,32 @@ public class MainActivity extends AppCompatActivity {
 
         mLoadingText.setVisibility(View.INVISIBLE);
         mMoviesList.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = new MenuInflater(getApplicationContext());
+        inflater.inflate(R.menu.main, menu);
+        mToggleSort = menu.findItem(R.id.action_toggle_sort);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.action_toggle_sort) {
+            toggleSort();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void toggleSort() {
+        sortingByPopular = !sortingByPopular;
+        if (sortingByPopular) {
+            requestQueue.add(fetchPopularMovieData());
+            mToggleSort.setTitle(R.string.sort_by_popular);
+        } else {
+            requestQueue.add(fetchTopRatedMovieData());
+            mToggleSort.setTitle(R.string.sort_by_top_rated);
+        }
     }
 }
