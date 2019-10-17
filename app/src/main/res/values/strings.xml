@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Popular Movies Stage 1</string>
+    <string name="loading_text">Loading...</string>
+    <string name="error_text">Could not fetch movies at this time.</string>
+    <string name="poster_content_description">Movie Poster</string>
+    <string name="title_activity_movie_detail">MovieDetailActivity</string>
 </resources>
