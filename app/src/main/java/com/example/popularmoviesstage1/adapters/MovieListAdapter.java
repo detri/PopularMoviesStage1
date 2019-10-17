@@ -1,13 +1,18 @@
 package com.example.popularmoviesstage1.adapters;
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.popularmoviesstage1.MovieDetailActivity;
 import com.example.popularmoviesstage1.R;
 import com.example.popularmoviesstage1.models.Movie;
 import com.example.popularmoviesstage1.utils.NetworkUtils;
@@ -39,12 +44,23 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MovieItemViewHolder holder, int position) {
-        Movie movie = mDataset.get(position);
+    public void onBindViewHolder(@NonNull final MovieItemViewHolder holder, int position) {
+        final Movie movie = mDataset.get(position);
         String posterPath = movie.getPosterPath();
         String fullPosterPath = NetworkUtils.getFullPosterPath(posterPath);
         Log.d("Poster Path", fullPosterPath);
         Picasso.get().load(fullPosterPath).error(R.drawable.ic_launcher_background).into(holder.movieThumbnail);
+
+        holder.movieThumbnail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Context mainContext = holder.movieThumbnail.getContext();
+                Intent movieDetailIntent = new Intent(mainContext, MovieDetailActivity.class);
+                movieDetailIntent.putExtra("movie", movie);
+                mainContext.startActivity(movieDetailIntent);
+
+            }
+        });
     }
 
     @Override

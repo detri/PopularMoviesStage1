@@ -3,5 +3,8 @@
     <string name="loading_text">Loading...</string>
     <string name="error_text">Could not fetch movies at this time.</string>
     <string name="poster_content_description">Movie Poster</string>
-    <string name="title_activity_movie_detail">MovieDetailActivity</string>
+    <string name="title_activity_movie_detail">Movie Details</string>
+    <string name="synopsis_label">Plot Synopsis</string>
+    <string name="release_label">Release Date</string>
+    <string name="user_rating_label">User Rating (Average)</string>
 </resources>

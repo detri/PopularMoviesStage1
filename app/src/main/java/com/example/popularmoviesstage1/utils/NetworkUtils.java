@@ -34,8 +34,21 @@ public class NetworkUtils {
 
     private static Uri.Builder getPosterBaseUri() {
         return new Uri.Builder()
-                .scheme("http")
+                .scheme("https")
                 .path("image.tmdb.org/t/p/w185");
+    }
+
+    private static Uri.Builder getLargePosterBaseUri() {
+        return new Uri.Builder()
+                .scheme("https")
+                .path("image.tmdb.org/t/p/w500");
+    }
+
+    public static String getLargePosterPath(String posterPath) {
+        return getLargePosterBaseUri()
+                .appendPath(posterPath.replace("/", ""))
+                .build()
+                .toString();
     }
 
     public static String getFullPosterPath(String posterPath) {
