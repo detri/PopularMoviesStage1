@@ -1,8 +1,8 @@
-package com.example.popularmoviesstage1.adapters;
+package com.example.popularmoviesstage2.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Parcelable;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,19 +12,22 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.popularmoviesstage1.MovieDetailActivity;
-import com.example.popularmoviesstage1.R;
-import com.example.popularmoviesstage1.models.Movie;
-import com.example.popularmoviesstage1.utils.NetworkUtils;
+import com.example.popularmoviesstage2.MovieDetailActivity;
+import com.example.popularmoviesstage2.R;
+import com.example.popularmoviesstage2.models.Movie;
+import com.example.popularmoviesstage2.utils.NetworkUtils;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.MovieItemViewHolder> {
     private List<Movie> mDataset;
+    private final int deviceWidth;
 
-    public MovieListAdapter(List<Movie> movieList) {
+    public MovieListAdapter(List<Movie> movieList, Context context) {
         mDataset = movieList;
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        deviceWidth = displayMetrics.widthPixels;
     }
 
     public static class MovieItemViewHolder extends RecyclerView.ViewHolder {
@@ -48,17 +51,21 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
         final Movie movie = mDataset.get(position);
         String posterPath = movie.getPosterPath();
         String fullPosterPath = NetworkUtils.getFullPosterPath(posterPath);
-        Log.d("Poster Path", fullPosterPath);
-        Picasso.get().load(fullPosterPath).error(R.drawable.ic_launcher_background).into(holder.movieThumbnail);
+
+        Picasso.get()
+                .load(fullPosterPath)
+                .error(R.drawable.ic_launcher_background)
+                .resize(deviceWidth / 2, deviceWidth / 2)
+                .centerCrop()
+                .into(holder.movieThumbnail);
 
         holder.movieThumbnail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Context mainContext = holder.movieThumbnail.getContext();
                 Intent movieDetailIntent = new Intent(mainContext, MovieDetailActivity.class);
-                movieDetailIntent.putExtra("movie", movie);
+                movieDetailIntent.putExtra("movie_id", movie.getId());
                 mainContext.startActivity(movieDetailIntent);
-
             }
         });
     }
@@ -69,5 +76,12 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
             return 0;
         }
         return mDataset.size();
+    }
+
+    public void setMovies(List<Movie> movies) {
+        mDataset.clear();
+        mDataset.addAll(movies);
+        notifyDataSetChanged();
+        Log.d("Dataset", "Data set changed");
     }
 }

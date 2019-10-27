@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/trailer_item_parent">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#777"/>
+
+    <TextView
+        android:id="@+id/trailer_item_text"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:gravity="center_vertical"
+        tools:text="Trailer 1"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:drawableLeft="@drawable/ic_play_circle"
+        android:drawableStart="@drawable/ic_play_circle"
+        android:drawablePadding="8dp"
+        android:textSize="22sp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#777" />
+
+</LinearLayout>

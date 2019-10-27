@@ -2,7 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:title="@string/sort_by_top_rated"
+        android:id="@+id/action_sort_by_top_rated"
+        app:showAsAction="ifRoom" />
+    <item
         android:title="@string/sort_by_popular"
-        android:id="@+id/action_toggle_sort"
+        android:id="@+id/action_sort_by_popular"
+        app:showAsAction="ifRoom" />
+    <item
+        android:title="@string/sort_by_favorite"
+        android:id="@+id/action_sort_by_favorite"
         app:showAsAction="ifRoom" />
 </menu>

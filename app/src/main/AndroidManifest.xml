@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.popularmoviesstage1">
+    package="com.example.popularmoviesstage2">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -12,10 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MovieDetailActivity"
+            android:name="com.example.popularmoviesstage2.MovieDetailActivity"
             android:label="@string/title_activity_movie_detail"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".MainActivity">
+            android:theme="@style/AppTheme"></activity>
+        <activity android:name="com.example.popularmoviesstage2.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

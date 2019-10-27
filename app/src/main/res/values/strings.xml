@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Popular Movies Stage 1</string>
+    <string name="app_name">Popular Movies Stage 2</string>
     <string name="loading_text">Loading...</string>
     <string name="error_text">Could not fetch movies at this time.</string>
     <string name="poster_content_description">Movie Poster</string>
@@ -9,4 +9,10 @@
     <string name="user_rating_label">User Rating (Average)</string>
     <string name="sort_by_popular">Popular</string>
     <string name="sort_by_top_rated">Top Rated</string>
+    <string name="favorite_movie">Favorite</string>
+    <string name="unfavorite_movie">Unfavorite</string>
+    <string name="sort_by_favorite">Favorites</string>
+    <string name="play_trailer">Play Trailer</string>
+    <string name="trailers">Trailers</string>
+    <string name="reviews">Reviews</string>
 </resources>
